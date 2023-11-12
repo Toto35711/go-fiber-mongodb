@@ -9,15 +9,14 @@ import (
 func main() {
 	app := fiber.New()
 
-	//run database
 	configs.ConnectDB()
+	port := configs.EnvPort()
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.JSON(&fiber.Map{"data": "Hello from Fiber & mongoDB"})
 	})
 
-	//routes
-	routes.UserRoute(app) //add this
+	routes.UserRoute(app)
 
-	app.Listen(":6000")
+	app.Listen(":" + port)
 }
